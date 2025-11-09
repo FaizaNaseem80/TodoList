@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>My To-Do List</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="clearCompletedTodos()">Clear Completed</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding todo-page">
+
+  <!-- Add Task -->
+  <ion-item lines="none">
+    <ion-input [(ngModel)]="newTodo" placeholder="Enter a new task" (keyup.enter)="addTodo()"></ion-input>
+
+    <ion-segment [(ngModel)]="selectedPriority" color="primary">
+      <ion-segment-button value="High">High</ion-segment-button>
+      <ion-segment-button value="Medium">Medium</ion-segment-button>
+      <ion-segment-button value="Low">Low</ion-segment-button>
+    </ion-segment>
+
+    <ion-button fill="solid" (click)="addTodo()">Add</ion-button>
+  </ion-item>
+
+  <!-- Filters -->
+  <ion-segment [(ngModel)]="filter" value="all" color="secondary">
+    <ion-segment-button value="all">All</ion-segment-button>
+    <ion-segment-button value="active">Active</ion-segment-button>
+    <ion-segment-button value="completed">Completed</ion-segment-button>
+  </ion-segment>
+
+  <!-- Task List -->
+  <ion-list *ngIf="!loading">
+    <ion-item-sliding *ngFor="let todo of filteredTodos">
+      <ion-card [ngClass]="{'completed': todo.completed}">
+        <ion-item lines="none">
+          <ion-checkbox slot="start" [checked]="todo.completed" (ionChange)="toggleTodo(todo)"></ion-checkbox>
+          <ion-label>
+            {{ todo.title }}
+            <ion-badge [color]="getPriorityColor(todo.priority)" class="priority-badge">
+              {{ todo.priority }}
+            </ion-badge>
+          </ion-label>
+
+          <ion-button fill="clear" color="danger" (click)="deleteTodo(todo)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && !filteredTodos.length" class="empty">
+    <p>Your tasks list is empty!</p>
+    <p>Add your first task above.</p>
+  </div>
+
+  <!-- Loading Spinner -->
+  <ion-spinner *ngIf="loading" name="crescent" class="spinner-center"></ion-spinner>
+
+</ion-content>

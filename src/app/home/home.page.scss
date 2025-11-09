@@ -1,0 +1,57 @@
+:host {
+  --ion-background-color: #121212;
+  --ion-color-primary: #6200ea;
+  --ion-color-light: #ffffff;
+  --ion-item-background: transparent;
+  --ion-item-color: #fff;
+  --ion-text-color: #e0e0e0;
+}
+
+.todo-page {
+  ion-card {
+    background: #1e1e1e;
+    border-radius: 12px;
+    margin: 8px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+  }
+
+  ion-card.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+  }
+
+  ion-label {
+    color: var(--ion-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .priority-badge {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+
+  ion-segment {
+    margin: 10px 0;
+    border-radius: 8px;
+  }
+
+  .empty {
+    text-align: center;
+    margin-top: 50px;
+    color: #888;
+  }
+
+  .spinner-center {
+    display: block;
+    margin: 100px auto;
+    color: var(--ion-color-primary);
+  }
+
+  ion-button {
+    --background: var(--ion-color-primary);
+    --color: #fff;
+  }
+}
